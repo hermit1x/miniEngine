@@ -28,3 +28,9 @@ target_link_libraries(miniEngine PRIVATE
     glad
     glfw
 )
+
+# Copy shaders folder to the build directory (same as program running dir)
+add_custom_command(TARGET miniEngine POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+    ${CMAKE_SOURCE_DIR}/src/shaders $<TARGET_FILE_DIR:miniEngine>/shaders
+)
