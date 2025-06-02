@@ -23,14 +23,21 @@ target_include_directories(miniEngine PRIVATE
     thirdparty/glfw-3.4/include
 )
 
+# 设置 shader 拷贝目标目录
+set(SHADER_DST_DIR ${CMAKE_BINARY_DIR}/shaders)
+
+# 自定义目标，每次构建都运行（不缓存）
+add_custom_target(copy_shaders ALL
+    COMMAND ${CMAKE_COMMAND} -E remove_directory ${SHADER_DST_DIR}
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+            ${CMAKE_SOURCE_DIR}/src/shaders
+            ${SHADER_DST_DIR}
+    COMMENT "Copying src/shaders to build directory"
+)
+add_dependencies(miniEngine copy_shaders)
+
 # Link glad and GLFW to the executable
 target_link_libraries(miniEngine PRIVATE
     glad
     glfw
-)
-
-# Copy shaders folder to the build directory (same as program running dir)
-add_custom_command(TARGET miniEngine POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_directory
-    ${CMAKE_SOURCE_DIR}/src/shaders $<TARGET_FILE_DIR:miniEngine>/shaders
 )
