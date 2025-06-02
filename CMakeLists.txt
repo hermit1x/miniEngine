@@ -21,6 +21,7 @@ add_executable(miniEngine
 target_include_directories(miniEngine PRIVATE
     thirdparty/glad/include
     thirdparty/glfw-3.4/include
+    thirdparty
 )
 
 # 设置 shader 拷贝目标目录
