@@ -77,7 +77,7 @@ int main()
 
     // build and compile our shader zprogram
     // ------------------------------------
-    Shader lightingShader("shaders/colors.vs", "shaders/colors.fs");
+    Shader lightingShader("shaders/basic_lighting.vs", "shaders/basic_lighting.fs");
     Shader lightCubeShader("shaders/light_cube.vs", "shaders/light_cube.fs");
 
     // set up vertex data (and buffer(s)) and configure vertex attributes
@@ -173,6 +173,7 @@ int main()
         lightingShader.use();
         lightingShader.setVec3("objectColor", 1.0f, 0.5f, 0.31f);
         lightingShader.setVec3("lightColor",  1.0f, 1.0f, 1.0f);
+        lightingShader.setVec3("lightPos", lightPos);
 
         // view/projection transformations
         glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
